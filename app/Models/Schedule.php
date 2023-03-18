@@ -16,4 +16,9 @@ class Schedule extends Model
         'start_time' => 'datetime',
         'end_time' => 'datetime',
     ];
+
+    public function unavailabilities()
+    {
+        return $this->hasMany(ScheduleUnavailability::class);
+    }
 }

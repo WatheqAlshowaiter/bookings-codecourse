@@ -12,11 +12,14 @@ class TimeSlotGenerator
 
     public $schedule;
 
+    public $service;
+
     protected $interval;
 
     public function __construct(Schedule $schedule, Service $service)
     {
         $this->schedule = $schedule;
+        $this->service = $service;
 
         $this->interval = CarbonInterval::minutes(self::INCREMENT)
             ->toPeriod(
