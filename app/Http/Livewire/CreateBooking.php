@@ -23,8 +23,12 @@ class CreateBooking extends Component
     {
         $this->state['employee'] = '';
 
-        $this->employees = $this->selectedService->employees;
+        if (!$serviceId) {
+            $this->employees = collect();
+            return;
+        }
 
+        $this->employees = $this->selectedService->employees;
     }
 
     public function getSelectedServiceProperty()
