@@ -9,9 +9,18 @@ class BookingCalendar extends Component
 {
     public $calendarStartDate;
 
+    public $date;
+
     public function mount()
     {
         $this->calendarStartDate = now();
+
+        $this->setDate(now()->timestamp);
+    }
+
+    public function setDate($timestamp)
+    {
+        $this->date = $timestamp;
     }
 
     public function getCalendarWeekIntervalProperty()
