@@ -6,7 +6,7 @@
                 wire:model="state.service">
                 <option value="">Select a service</option>
                 @foreach ($services as $service)
-                    <option value="{{ $service->id }}">{{ $service->name }} ({{ $service->duration}} minutes)</option>
+                    <option value="{{ $service->id }}">{{ $service->name }} ({{ $service->duration }} minutes)</option>
                 @endforeach
             </select>
         </div>
@@ -24,14 +24,22 @@
 
         <div class="mb-6 {{ !$this->selectedService || !$this->selectedEmployee ? 'opacity-25' : '' }}">
             <label for="appointment" class="inline-block text-gray-700 font-bold mb-2">Select appointment</label>
-            <livewire:booking-calendar
-                :service="$this->selectedService"
-                :employee="$this->selectedEmployee"
-                :key="optional($this->selectedEmployee)->id"
-                />
+            <livewire:booking-calendar :service="$this->selectedService" :employee="$this->selectedEmployee" :key="optional($this->selectedEmployee)->id" />
         </div>
 
+        @if ($this->hasDetailsToBook)
+            <div class="mb-6">
+                <div class="text-gray-700 font-bold mb-2">
+                    You're ready to book
+                </div>
 
+                <div class="border-t border-b border-gray-300 py-2">
+                    {{ $this->selectedService->name }} ({{ $this->selectedService->duration }} minutes) with
+                    {{ $this->selectedEmployee->name }}
+                    on {{ $this->timeObject->format('D jS M Y') }} at {{ $this->timeObject->format('g:i A') }}
+                </div>
+            </div>
+        @endif
 
     </form>
 </div>

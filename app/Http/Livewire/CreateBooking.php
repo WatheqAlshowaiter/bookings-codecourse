@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Employee;
 use App\Models\Service;
+use Illuminate\Support\Carbon;
 use Livewire\Component;
 
 class CreateBooking extends Component
@@ -34,7 +35,7 @@ class CreateBooking extends Component
     {
         $this->state['employee'] = '';
 
-        if (! $serviceId) {
+        if (!$serviceId) {
             $this->employees = collect();
 
             return;
@@ -57,7 +58,7 @@ class CreateBooking extends Component
 
     public function getSelectedServiceProperty()
     {
-        if (! $this->state['service']) {
+        if (!$this->state['service']) {
             return null;
         }
 
@@ -66,11 +67,23 @@ class CreateBooking extends Component
 
     public function getSelectedEmployeeProperty()
     {
-        if (! $this->state['employee']) {
+        if (!$this->state['employee']) {
             return null;
         }
 
         return Employee::find($this->state['employee']);
+    }
+
+    public function getHasDetailsToBookProperty()
+    {
+        return $this->state['service']
+            && $this->state['employee']
+            && $this->state['time'];
+    }
+
+    public function getTimeObjectProperty()
+    {
+        return Carbon::createFromTimestamp($this->state['time']);
     }
 
     public function render()
