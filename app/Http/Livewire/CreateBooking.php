@@ -23,6 +23,17 @@ class CreateBooking extends Component
         'updated-booking-time' => 'setTime',
     ];
 
+    protected function rules()
+    {
+        return [
+            'state.service' => ['required', 'exists:services,id'],
+            'state.employee' => ['required', 'exists:employees,id'],
+            'state.time' => ['required', 'numeric'],
+            'state.name' => ['required', 'string'],
+            'state.email' => ['required', 'email'],
+        ];
+    }
+
     public function mount()
     {
         $this->employees = collect();
@@ -30,6 +41,7 @@ class CreateBooking extends Component
 
     public function createBooking()
     {
+        $this->validate();
         dd($this->state);
     }
 
