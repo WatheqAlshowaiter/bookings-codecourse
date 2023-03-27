@@ -38,6 +38,37 @@
                     {{ $this->selectedEmployee->name }}
                     on {{ $this->timeObject->format('D jS M Y') }} at {{ $this->timeObject->format('g:i A') }}
                 </div>
+
+                <div class="mb-6">
+                    <div class="mb-3">
+                        <label for="name" class="inline-block text-gray-700 font-bold mb-2">Your name</label>
+                        <input type="text" name="name" id="name"
+                            class="bg-white h-10 w-full border-none rounded-lg" wire:model.defer="state.name">
+
+                        @error('state.name')
+                            <div class="font-semibold text-red-500 text-sm mt-2">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="inline-block text-gray-700 font-bold mb-2">Your email</label>
+                        <input type="text" name="email" id="email"
+                            class="bg-white h-10 w-full border-none rounded-lg" wire:model.defer="state.email">
+
+                        @error('state.email')
+                            <div class="font-semibold text-red-500 text-sm mt-2">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+
+                <button type="submit"
+                    class="bg-indigo-500 text-white h-11 px-4 text-center font-bold rounded-lg w-full">
+                    Book now
+                </button>
             </div>
         @endif
 

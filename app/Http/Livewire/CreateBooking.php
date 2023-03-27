@@ -15,6 +15,8 @@ class CreateBooking extends Component
         'service' => '',
         'employee' => '',
         'time' => '',
+        'name' => '',
+        'email' => '',
     ];
 
     protected $listeners = [
@@ -26,6 +28,11 @@ class CreateBooking extends Component
         $this->employees = collect();
     }
 
+    public function createBooking()
+    {
+        dd($this->state);
+    }
+
     public function setTime($time)
     {
         $this->state['time'] = $time;
@@ -35,7 +42,7 @@ class CreateBooking extends Component
     {
         $this->state['employee'] = '';
 
-        if (!$serviceId) {
+        if (! $serviceId) {
             $this->employees = collect();
 
             return;
@@ -58,7 +65,7 @@ class CreateBooking extends Component
 
     public function getSelectedServiceProperty()
     {
-        if (!$this->state['service']) {
+        if (! $this->state['service']) {
             return null;
         }
 
@@ -67,7 +74,7 @@ class CreateBooking extends Component
 
     public function getSelectedEmployeeProperty()
     {
-        if (!$this->state['employee']) {
+        if (! $this->state['employee']) {
             return null;
         }
 
