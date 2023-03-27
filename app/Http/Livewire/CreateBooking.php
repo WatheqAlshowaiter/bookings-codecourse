@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Appointment;
 use App\Models\Employee;
 use App\Models\Service;
 use Illuminate\Support\Carbon;
@@ -42,7 +43,23 @@ class CreateBooking extends Component
     public function createBooking()
     {
         $this->validate();
-        dd($this->state);
+
+        $bookingFields = [
+            'date' => $this->timeObject->toDateString(),
+            'start_time' => $this->timeObject->toTimeString(),
+            'end_time' => $this->timeObject->clone()->addMinutes(
+                $this->selectedService->duration
+            )->toTimeString(),
+            'client_name' => $this->state['name'],
+            'client_email' => $this->state['email'],
+        ];
+
+        $appointment = Appointment::make($bookingFields); // `make` does not persist in database
+
+        $appointment->service()->associate($this->selectedService);
+        $appointment->employee()->associate($this->selectedEmployee);
+
+        $appointment->save();
     }
 
     public function setTime($time)
