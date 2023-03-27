@@ -2,9 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Employee;
 use App\Models\Service;
 use Livewire\Component;
-use App\Models\Employee;
 
 class CreateBooking extends Component
 {
@@ -13,6 +13,11 @@ class CreateBooking extends Component
     public $state = [
         'service' => '',
         'employee' => '',
+        'time' => '',
+    ];
+
+    protected $listeners = [
+        'updated-booking-time' => 'setTime',
     ];
 
     public function mount()
@@ -20,21 +25,39 @@ class CreateBooking extends Component
         $this->employees = collect();
     }
 
+    public function setTime($time)
+    {
+        $this->state['time'] = $time;
+    }
+
     public function updatedStateService($serviceId)
     {
         $this->state['employee'] = '';
 
-        if (!$serviceId) {
+        if (! $serviceId) {
             $this->employees = collect();
+
             return;
         }
+
+        $this->clearTime();
 
         $this->employees = $this->selectedService->employees;
     }
 
+    public function updatedStateEmployee()
+    {
+        $this->clearTime();
+    }
+
+    public function clearTime()
+    {
+        $this->state['time'] = '';
+    }
+
     public function getSelectedServiceProperty()
     {
-        if (!$this->state['service']) {
+        if (! $this->state['service']) {
             return null;
         }
 
@@ -43,7 +66,7 @@ class CreateBooking extends Component
 
     public function getSelectedEmployeeProperty()
     {
-        if (!$this->state['employee']) {
+        if (! $this->state['employee']) {
             return null;
         }
 
