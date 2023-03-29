@@ -48,4 +48,9 @@ class Appointment extends Model
     {
         $builder->whereNull('cancelled_at');
     }
+
+    public function isCancelled()
+    {
+        return ! is_null($this->cancelled_at);
+    }
 }
