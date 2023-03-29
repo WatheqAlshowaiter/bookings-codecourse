@@ -2,14 +2,15 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Livewire\CreateBooking;
+use App\Http\Livewire\ShowBooking;
 use Illuminate\Support\Facades\Route;
-
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/bookings/create', CreateBooking::class);
+Route::get('/bookings/{appointment:uuid}', ShowBooking::class)->name('bookings.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
