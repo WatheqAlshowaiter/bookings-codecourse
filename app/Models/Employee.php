@@ -2,16 +2,13 @@
 
 namespace App\Models;
 
-use App\Models\Service;
-use App\Models\Schedule;
-use App\Models\Appointment;
-use App\Bookings\TimeSlotGenerator;
-use Illuminate\Database\Eloquent\Model;
 use App\Bookings\Filters\AppointmentFilter;
-use App\Bookings\Filters\UnavailabilityFilter;
 use App\Bookings\Filters\SlotsPassedTodayFilter;
+use App\Bookings\Filters\UnavailabilityFilter;
+use App\Bookings\TimeSlotGenerator;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
@@ -30,7 +27,7 @@ class Employee extends Model
 
     public function appointmentsForDate(Carbon $date)
     {
-        return $this->appointments()->whereDate('date', $date)->get();
+        return $this->appointments()->notCancelled()->whereDate('date', $date)->get();
     }
 
     public function services()
