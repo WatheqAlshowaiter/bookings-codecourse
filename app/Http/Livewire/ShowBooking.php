@@ -23,4 +23,11 @@ class ShowBooking extends Component
     {
         return view('livewire.show-booking')->layout('layouts.guest');
     }
+
+    public function cancelBooking()
+    {
+        $this->appointment->update([
+            'cancelled_at' => now()
+        ]);
+    }
 }

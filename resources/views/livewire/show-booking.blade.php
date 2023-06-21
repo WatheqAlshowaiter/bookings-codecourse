@@ -19,7 +19,7 @@
         <button type="button" class="bg-pink-500 text-white h-11 px-4 text-center font-bold rounded-lg w-full"
             x-data="{
                 confirmCancellation() {
-                    if (window.confirm('Are you surr?')) {
+                    if (window.confirm('Are you sure?')) {
                         @this.call('cancelBooking')
                     }
                 }
